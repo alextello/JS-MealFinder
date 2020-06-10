@@ -80,9 +80,21 @@ function addMealToDOM(meal) {
     </div>`;
 }
 
+function randomMeal() {
+    mealsEl.innerHTML = '';
+    resultHeading.innerHTML = '';
+    fetch(`https://www.themealdb.com/api/json/v1/1/random.php`)
+        .then(res => res.json())
+        .then(data => {
+            const meal = data.meals[0];
+            addMealToDOM(meal);
+        });
+}
+
 // Listeners
 
 submit.addEventListener('submit', searchMeal)
+random.addEventListener('click', randomMeal)
 
 mealsEl.addEventListener('click', e => {
     const path = e.path || (e.composedPath && e.composedPath());
